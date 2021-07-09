@@ -22,7 +22,7 @@ str2start='###';
 a1=strfind(str,str2begin);
 a11=strfind(str(a1+length(str2begin):end),str2start);
 a2=strfind(str,'### ASCCONV END ###');
-stra=str(1:(a1-1));
+stra=str(1:(a1-1)); %this is the first part, an XML struct of the protocol
 str=str((a1+length(str2begin)+a11+length(str2start)):a2-2);
 
 request_lines = regexp(str, '\n+', 'split');
@@ -72,7 +72,6 @@ for i=1:length(request_lines)
     if(valstr)
         evalstr=[evalstr '=''' value ''';'];
     else
-        %if(strcmp(value(1:min(2:end)),'0x'))
         if(contains(value,'0x'))
             evalstr=[evalstr '='  num2str(hex2dec(value(strfind(value,'0x')+2:end))) ';'];
         else
